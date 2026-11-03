@@ -127,68 +127,7 @@ Tujuan pengembangan FEBMart adalah:
 
 ---
 
-## 7. Pembagian Tugas Anggota Kelompok
-
-| No | Anggota | Tanggung Jawab | Target Commit |
-| :---: | :--- | :--- | :---: |
-| 1 | Anggota 1 | Authentication & User Management | 12 |
-| 2 | Anggota 2 | Master Data Kategori & Produk | 12 |
-| 3 | Anggota 3 | Transaksi Kasir / Point of Sales | 12 |
-| 4 | Anggota 4 | Riwayat Transaksi, Laporan & Cetak Struk | 12 |
-| 5 | Anggota 5 | UI/UX & Layout Website | 12 |
-| 6 | Anggota 6 | Database, Dashboard & Monitoring Stok | 12 |
-| **Total** | | **Pengembangan FEBMart** | **72** |
-
-### Detail Tanggung Jawab
-
-####  Anggota 1 – Authentication & User Management
-- Membuat koneksi database PHP.
-- Membuat tabel dan data awal pengguna.
-- Mengembangkan halaman login administrator.
-- Mengimplementasikan validasi login dan session.
-- Mengimplementasikan password hashing.
-- Mengembangkan fitur logout.
-- Mengembangkan CRUD data pengguna.
-- Melindungi halaman administrator menggunakan validasi session.
-
-#### Anggota 2 – Master Data Kategori & Produk
-- Mengembangkan pengelolaan kategori produk.
-- Mengembangkan pengelolaan data produk.
-- Membuat fitur pencarian dan validasi.
-- Mengembangkan fitur upload gambar produk.
-
-#### Anggota 3 – Transaksi Kasir / Point of Sales
-- Mengembangkan halaman transaksi kasir.
-- Mengelola keranjang belanja.
-- Mengembangkan perhitungan pembayaran dan kembalian.
-- Menyimpan transaksi dan detail transaksi.
-- Mengimplementasikan pemotongan stok otomatis.
-
-#### Anggota 4 – Riwayat Transaksi, Laporan & Cetak Struk
-- Mengembangkan halaman riwayat transaksi.
-- Menampilkan detail transaksi.
-- Mengembangkan laporan penjualan.
-- Mengembangkan filter laporan berdasarkan tanggal.
-- Membuat fitur cetak struk dan ekspor laporan Excel.
-
-####  Anggota 5 – UI/UX & Layout Website
-- Mengembangkan struktur tampilan website.
-- Mengintegrasikan AdminLTE dan Bootstrap.
-- Membuat komponen layout modular.
-- Mengembangkan dashboard dan komponen antarmuka.
-- Mengoptimalkan responsivitas tampilan.
-
-####  Anggota 6 – Database, Dashboard & Monitoring Stok
-- Merancang struktur dan relasi database.
-- Membuat file skema database.
-- Mengembangkan statistik dashboard.
-- Menampilkan informasi jumlah produk dan transaksi.
-- Mengembangkan monitoring stok barang.
-- Membuat notifikasi stok menipis.
-
----
-
-## 8. Persyaratan Sistem
+## 7. Persyaratan Sistem
 
 Untuk menjalankan FEBMart pada lingkungan lokal, diperlukan:
 
@@ -201,7 +140,7 @@ Untuk menjalankan FEBMart pada lingkungan lokal, diperlukan:
 
 ---
 
-## 9. Panduan Instalasi dan Menjalankan Sistem
+## 8. Panduan Instalasi dan Menjalankan Sistem
 
 ### Langkah 1 – Clone Repository
 Clone repository proyek ke komputer Anda:
@@ -244,7 +183,7 @@ http://localhost/TUBES_PRK_PEMWEB_2026/kelompok/kelompok_23/
 
 ---
 
-## 10. Kolaborasi Git dan GitHub
+## 9. Kolaborasi Git dan GitHub
 
 Pengembangan FEBMart menggunakan Git dan GitHub untuk mengelola versi kode serta mendukung kolaborasi antaranggota.
 
@@ -273,7 +212,7 @@ git push origin feat/kelompok-23-auth-user
 
 ---
 
-## 11. Keamanan Sistem
+## 10. Keamanan Sistem
 
 Pengembangan FEBMart memperhatikan beberapa aspek keamanan, antara lain:
 - Password pengguna disimpan menggunakan fungsi hashing PHP (`password_hash()`).
@@ -285,7 +224,7 @@ Pengembangan FEBMart memperhatikan beberapa aspek keamanan, antara lain:
 
 ---
 
-## 12. Batasan Pengembangan
+## 11. Batasan Pengembangan
 
 Sistem FEBMart dikembangkan dengan batasan sebagai berikut:
 1. Sistem berbasis website dan dijalankan pada lingkungan server lokal.
