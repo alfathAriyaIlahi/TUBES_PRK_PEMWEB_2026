@@ -29,6 +29,7 @@ if (!isset($pageTitle)) {
                         <a href="/admin/dashboard.php" class="nav-link">Dashboard</a>
                         <a href="/admin/kelola.php" class="nav-link">Kelola Laporan</a>
                         <a href="/admin/kategori.php" class="nav-link">Kategori</a>
+                        <a href="/profil.php" class="nav-link">Profil</a>
                     <?php else: ?>
                         <a href="/user/kirim.php" class="nav-link">Sampaikan Laporan</a>
                         <a href="/user/laporan_saya.php" class="nav-link">Laporan Saya</a>

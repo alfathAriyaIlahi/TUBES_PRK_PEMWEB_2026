@@ -1,0 +1,12 @@
+{
+  "name": "advokita/advokita",
+  "description": "Whistleblowing & Legal Aid System",
+  "type": "project",
+  "require": {
+    "php": ">=8.1",
+    "ext-pdo": "*",
+    "ext-pdo_pgsql": "*",
+    "ext-fileinfo": "*"
+  }
+}
+

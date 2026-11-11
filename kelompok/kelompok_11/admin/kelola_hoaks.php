@@ -23,7 +23,6 @@ try {
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 flex font-sans">
-    <!-- Sidebar -->
     <aside class="w-64 bg-gray-900 text-white min-h-screen p-5 relative">
         <h1 class="text-2xl font-bold mb-8 text-blue-400 border-b border-gray-700 pb-4">CiviLens Admin</h1>
         <nav class="space-y-4">
@@ -36,7 +35,6 @@ try {
         </div>
     </aside>
 
-    <!-- Main Content -->
     <main class="flex-1 p-8">
         <header class="mb-8">
             <h2 class="text-3xl font-semibold text-gray-800">Manajemen Laporan Hoaks</h2>

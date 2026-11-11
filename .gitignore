@@ -3,3 +3,10 @@ Thumbs.db
 .vscode/
 .idea/
 *.log
+
+.github/scripts/audit_kelompok.php
+.github/scripts/README.md
+/scripts/
+rekap_*.md
+rekap_*.csv
+

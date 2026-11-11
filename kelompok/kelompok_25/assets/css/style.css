@@ -1,0 +1,54 @@
+/* Ruang Hukum - gaya bersama. Lihat DESIGN.md untuk aturan pemakaian. */
+:root {
+  --navy: #0f2747;
+  --navy-700: #1b3a66;
+  --gold: #c9a24b;
+  --gold-600: #b08a36;
+  --ivory: #f7f5f0;
+  --ink: #1b2433;
+  --muted: #6b7686;
+  --line: #e4e0d6;
+  --bs-primary: var(--navy);
+  --bs-body-font-family: 'Inter', system-ui, sans-serif;
+  --bs-body-color: var(--ink);
+  --bs-body-bg: var(--ivory);
+  --bs-link-color: var(--navy-700);
+}
+body { background: var(--ivory); color: var(--ink); }
+h1, h2, h3, h4, .font-serif { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; color: var(--navy); }
+
+.navbar-rh { background: var(--navy); box-shadow: 0 2px 12px rgba(15,39,71,.25); }
+.navbar-rh .navbar-brand { font-family: 'Playfair Display', serif; font-weight: 700; color: #fff; font-size: 1.35rem; }
+.navbar-rh .navbar-brand .bi { color: var(--gold); }
+.navbar-rh .nav-link { color: rgba(255,255,255,.8); }
+.navbar-rh .nav-link:hover { color: var(--gold); }
+.navbar-rh .navbar-toggler { border-color: rgba(255,255,255,.4); }
+.navbar-rh .navbar-toggler-icon { filter: invert(1); }
+
+.btn-gold { background: var(--gold); border-color: var(--gold); color: var(--navy); font-weight: 600; }
+.btn-gold:hover { background: var(--gold-600); border-color: var(--gold-600); color: #fff; }
+.btn-navy { background: var(--navy); border-color: var(--navy); color: #fff; }
+.btn-navy:hover { background: var(--navy-700); border-color: var(--navy-700); color: #fff; }
+
+.card-rh { background: #fff; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 2px 10px rgba(15,39,71,.06); }
+.card-rh.hoverable { transition: transform .15s, box-shadow .15s; }
+.card-rh.hoverable:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(15,39,71,.12); }
+
+.section-title { position: relative; padding-bottom: .6rem; margin-bottom: 1.5rem; }
+.section-title::after { content: ''; position: absolute; left: 0; bottom: 0; width: 56px; height: 3px; background: var(--gold); border-radius: 2px; }
+
+.hero { background: linear-gradient(135deg, var(--navy), var(--navy-700)); color: #fff; padding: 4.5rem 0; }
+.hero h1 { color: #fff; }
+
+.badge-status { font-weight: 600; padding: .4em .7em; border-radius: 999px; }
+.badge-menunggu { background: #fff3d6; color: #8a6200; }
+.badge-dijawab  { background: #dbeafe; color: #1e4fa3; }
+.badge-selesai  { background: #dcfce7; color: #166534; }
+.badge-ditutup  { background: #e5e7eb; color: #4b5563; }
+
+.form-control:focus, .form-select:focus { border-color: var(--gold); box-shadow: 0 0 0 .2rem rgba(201,162,75,.25); }
+.footer-rh { background: var(--navy); color: rgba(255,255,255,.8); }
+.footer-rh strong { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.1rem; }
+
+.stat-card .angka { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--navy); }
+.page-head { padding: 2rem 0 1rem; }

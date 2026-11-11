@@ -7,9 +7,7 @@
         </div>
     </footer>
 
-    <?php if (file_exists(__DIR__ . '/../assets/js/ui.js')): ?>
-        <script src="/assets/js/ui.js" defer></script>
-    <?php endif; ?>
+    <script src="/assets/js/ui.js" defer></script>
 </body>
 </html>
 

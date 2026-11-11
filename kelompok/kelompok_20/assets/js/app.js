@@ -1,3 +1,9 @@
+let currentKeyword = '';
+let currentKategori = '';
+let currentJenis = '';
+let currentPage = 1;
+let debounceTimer = null;
+
 function esc(str) {
     if (str === null || str === undefined) {
         return '';
@@ -10,7 +16,6 @@ function esc(str) {
         .replace(/'/g, '&#039;');
 }
 
-//Format badge status sesuai token desain di style.css
 function badgeStatus(status) {
     const s = String(status || '').toLowerCase().trim();
     let badgeClass = 'badge-menunggu';
@@ -27,7 +32,6 @@ function badgeStatus(status) {
     return `<span class="badge ${badgeClass}">${esc(label)}</span>`;
 }
 
-//Format tanggal Indonesia ringkas
 function formatTanggal(dateString) {
     if (!dateString) return '-';
     const date = new Date(dateString);
@@ -39,20 +43,24 @@ function formatTanggal(dateString) {
     });
 }
 
-//Memuat data laporan dari endpoint API dengan AJAX fetch
-function loadLaporan(keyword = '') {
+function loadLaporan(page = 1) {
+    currentPage = page;
     const container = document.getElementById('laporan-container');
-    const statusInfo = document.getElementById('search-info');
     if (!container) return;
 
-    // Tampilkan indikator memuat (Loading state)
     container.innerHTML = `
         <div style="text-align: center; padding: 2.5rem 1rem; color: var(--color-text-muted);">
             <em>Memuat data dari server...</em>
         </div>
     `;
 
-    const url = `/api/laporan.php?search=${encodeURIComponent(keyword)}`;
+    const params = new URLSearchParams();
+    if (currentKeyword) params.append('search', currentKeyword);
+    if (currentKategori) params.append('kategori', currentKategori);
+    if (currentJenis) params.append('jenis', currentJenis);
+    params.append('page', currentPage);
+
+    const url = `/api/laporan.php?${params.toString()}`;
 
     fetch(url)
         .then(response => {
@@ -63,7 +71,8 @@ function loadLaporan(keyword = '') {
         })
         .then(res => {
             if (res.status === 'success') {
-                renderLaporan(res.data, keyword);
+                renderLaporan(res.data, res.pagination);
+                renderPagination(res.pagination);
             } else {
                 showError(res.message || 'Gagal memuat data laporan.');
             }
@@ -74,21 +83,23 @@ function loadLaporan(keyword = '') {
         });
 }
 
-//Merender daftar laporan ke dalam elemen HTML
-function renderLaporan(laporanList, keyword) {
+function renderLaporan(laporanList, pagination) {
     const container = document.getElementById('laporan-container');
     const statusInfo = document.getElementById('search-info');
     if (!container) return;
 
     if (statusInfo) {
-        if (keyword) {
-            statusInfo.textContent = `Menampilkan hasil pencarian "${keyword}" (${laporanList.length} laporan ditemukan)`;
-        } else {
-            statusInfo.textContent = `Menampilkan ${laporanList.length} laporan publik`;
+        const total = pagination && pagination.total_data !== undefined ? pagination.total_data : (laporanList ? laporanList.length : 0);
+        let infoText = `Menampilkan ${total} laporan publik`;
+        if (currentKeyword) {
+            infoText = `Menampilkan hasil pencarian "${currentKeyword}" (${total} laporan ditemukan)`;
         }
+        if (pagination && pagination.total_pages > 1) {
+            infoText += ` • Halaman ${pagination.current_page} dari ${pagination.total_pages}`;
+        }
+        statusInfo.textContent = infoText;
     }
 
-    // Jika data kosong (Empty state)
     if (!laporanList || laporanList.length === 0) {
         container.innerHTML = `
             <div style="background-color: var(--color-surface); border: 1px dashed var(--color-border); border-radius: var(--radius); padding: 3rem 1.5rem; text-align: center;">
@@ -96,14 +107,15 @@ function renderLaporan(laporanList, keyword) {
                     Tidak ada laporan yang ditemukan
                 </p>
                 <p style="font-size: 0.9rem; color: var(--color-text-muted); margin: 0;">
-                    ${keyword ? 'Coba gunakan kata kunci pencarian yang lain.' : 'Belum ada laporan publik yang terdaftar saat ini.'}
+                    ${currentKeyword || currentKategori || currentJenis ? 'Coba sesuaikan kata kunci atau filter pencarian Anda.' : 'Belum ada laporan publik yang terdaftar saat ini.'}
                 </p>
             </div>
         `;
+        const pagContainer = document.getElementById('pagination-container');
+        if (pagContainer) pagContainer.innerHTML = '';
         return;
     }
 
-    // Render daftar laporan publik dalam kartu-kartu yang rapi
     let html = '<div style="display: flex; flex-direction: column; gap: 1rem;">';
 
     laporanList.forEach(item => {
@@ -116,7 +128,6 @@ function renderLaporan(laporanList, keyword) {
         const tanggal = formatTanggal(item.created_at);
         const badge = badgeStatus(item.status);
 
-        // Cuplikan tanggapan admin jika ada
         let tanggapanHtml = '';
         if (item.tanggapan_terakhir) {
             tanggapanHtml = `
@@ -167,7 +178,47 @@ function renderLaporan(laporanList, keyword) {
     container.innerHTML = html;
 }
 
-//Menampilkan pesan error saat fetch gagal
+function renderPagination(pagination) {
+    const container = document.getElementById('pagination-container');
+    if (!container) return;
+
+    if (!pagination || pagination.total_pages <= 1) {
+        container.innerHTML = '';
+        return;
+    }
+
+    const totalPages = pagination.total_pages;
+    const current = pagination.current_page;
+    let html = '';
+
+    if (current > 1) {
+        html += `<button type="button" class="btn btn-secondary btn-sm" onclick="goToPage(${current - 1})">&laquo; Sebelumnya</button>`;
+    } else {
+        html += `<button type="button" class="btn btn-secondary btn-sm" disabled style="opacity: 0.5; cursor: not-allowed;">&laquo; Sebelumnya</button>`;
+    }
+
+    for (let i = 1; i <= totalPages; i++) {
+        if (i === current) {
+            html += `<button type="button" class="btn btn-primary btn-sm" style="font-weight: 700;">${i}</button>`;
+        } else {
+            html += `<button type="button" class="btn btn-secondary btn-sm" onclick="goToPage(${i})">${i}</button>`;
+        }
+    }
+
+    if (current < totalPages) {
+        html += `<button type="button" class="btn btn-secondary btn-sm" onclick="goToPage(${current + 1})">Selanjutnya &raquo;</button>`;
+    } else {
+        html += `<button type="button" class="btn btn-secondary btn-sm" disabled style="opacity: 0.5; cursor: not-allowed;">Selanjutnya &raquo;</button>`;
+    }
+
+    container.innerHTML = html;
+}
+
+function goToPage(page) {
+    loadLaporan(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
 function showError(pesan) {
     const container = document.getElementById('laporan-container');
     if (!container) return;
@@ -179,23 +230,47 @@ function showError(pesan) {
     `;
 }
 
-// Inisialisasi event listener saat DOM siap
 document.addEventListener('DOMContentLoaded', () => {
     const searchInput = document.getElementById('search-input');
-    let debounceTimer = null;
+    const filterKategori = document.getElementById('filter-kategori');
+    const filterJenis = document.getElementById('filter-jenis');
+    const btnReset = document.getElementById('btn-reset');
 
     if (searchInput) {
-        // Implementasi Debouncing 300 ms
         searchInput.addEventListener('input', (e) => {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(() => {
-                const keyword = e.target.value.trim();
-                loadLaporan(keyword);
+                currentKeyword = e.target.value.trim();
+                loadLaporan(1);
             }, 300);
         });
     }
 
-    // Muat semua laporan publik pertama kali
-    loadLaporan('');
-});
+    if (filterKategori) {
+        filterKategori.addEventListener('change', (e) => {
+            currentKategori = e.target.value;
+            loadLaporan(1);
+        });
+    }
 
+    if (filterJenis) {
+        filterJenis.addEventListener('change', (e) => {
+            currentJenis = e.target.value;
+            loadLaporan(1);
+        });
+    }
+
+    if (btnReset) {
+        btnReset.addEventListener('click', () => {
+            currentKeyword = '';
+            currentKategori = '';
+            currentJenis = '';
+            if (searchInput) searchInput.value = '';
+            if (filterKategori) filterKategori.value = '';
+            if (filterJenis) filterJenis.value = '';
+            loadLaporan(1);
+        });
+    }
+
+    loadLaporan(1);
+});

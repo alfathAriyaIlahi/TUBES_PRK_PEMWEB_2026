@@ -4,7 +4,6 @@ require_once __DIR__ . '/includes/functions.php';
 
 $pageTitle = 'Beranda';
 
-// Default nilai awal jika database kosong atau jika terjadi error
 $totalLaporan   = 0;
 $totalMenunggu  = 0;
 $totalDiproses  = 0;
@@ -13,13 +12,11 @@ $laporanTerbaru = [];
 $pesanErrorDb   = null;
 
 try {
-    // Hitung statistik hanya untuk laporan publik (is_public = 1)
     $totalLaporan  = (int)$pdo->query("SELECT COUNT(*) FROM laporan WHERE is_public = 1")->fetchColumn();
     $totalMenunggu = (int)$pdo->query("SELECT COUNT(*) FROM laporan WHERE is_public = 1 AND status = 'menunggu'")->fetchColumn();
     $totalDiproses = (int)$pdo->query("SELECT COUNT(*) FROM laporan WHERE is_public = 1 AND status = 'diproses'")->fetchColumn();
     $totalSelesai  = (int)$pdo->query("SELECT COUNT(*) FROM laporan WHERE is_public = 1 AND status = 'selesai'")->fetchColumn();
 
-    // Ambil 5 laporan publik terbaru (diurutkan created_at DESC dan id DESC)
     $sql = "SELECT l.id, l.judul, l.lokasi, l.jenis, l.status, l.created_at,
                    k.nama_kategori,
                    u.nama AS nama_pelapor
@@ -31,7 +28,6 @@ try {
             LIMIT 5";
     $laporanTerbaru = $pdo->query($sql)->fetchAll();
 } catch (PDOException $e) {
-    // Jika koneksi/query gagal, tampilkan pesan umum tanpa membocorkan detail error teknis
     $pesanErrorDb   = 'Data belum dapat dimuat.';
     $totalLaporan   = 0;
     $totalMenunggu  = 0;
@@ -40,7 +36,6 @@ try {
     $laporanTerbaru = [];
 }
 
-// Data kartu statistik untuk looping foreach
 $kartuStatistik = [
     [
         'label' => 'Total Laporan',
@@ -67,7 +62,6 @@ $kartuStatistik = [
 require_once __DIR__ . '/includes/header.php';
 ?>
 
-<!-- Style khusus halaman beranda dengan variabel CSS yang tersedia -->
 <style>
 .beranda-hero {
     margin-bottom: 2.5rem;
@@ -109,14 +103,12 @@ require_once __DIR__ . '/includes/header.php';
 }
 </style>
 
-<!-- Pesan error jika database bermasalah -->
 <?php if ($pesanErrorDb): ?>
     <div class="alert alert-danger">
         <?= sanitize($pesanErrorDb) ?>
     </div>
 <?php endif; ?>
 
-<!-- Bagian Pembuka / Hero -->
 <section class="beranda-hero">
     <div style="max-width: 850px;">
         <h1 style="font-size: 2.1rem; line-height: 1.25; color: var(--color-primary); margin-bottom: 0.85rem; letter-spacing: -0.5px;">
@@ -127,7 +119,6 @@ require_once __DIR__ . '/includes/header.php';
         </p>
         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
             <?php if (!isAdmin()): ?>
-                <!-- Tombol ini hanya tampil untuk guest dan pengguna biasa, disembunyikan untuk admin -->
                 <a href="/user/kirim.php" class="btn btn-primary">Sampaikan Laporan</a>
             <?php endif; ?>
             <a href="/laporan_publik.php" class="btn btn-secondary">Lihat Laporan Publik</a>
@@ -135,7 +126,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<!-- Statistik Penanganan Laporan -->
 <section style="margin-bottom: 2.75rem;">
     <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); margin-bottom: 1rem;">
         Statistik Penanganan
@@ -155,7 +145,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<!-- Tata Cara Melaporkan -->
 <section style="margin-bottom: 2.75rem;">
     <div style="margin-bottom: 1.25rem;">
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.35rem;">
@@ -221,7 +210,6 @@ require_once __DIR__ . '/includes/header.php';
     </div>
 </section>
 
-<!-- 5 Laporan Publik Terbaru -->
 <section style="margin-bottom: 1rem;">
     <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 1rem; flex-wrap: wrap; gap: 0.5rem;">
         <h2 style="font-size: 1.25rem; font-weight: 700; color: var(--color-primary); margin: 0;">

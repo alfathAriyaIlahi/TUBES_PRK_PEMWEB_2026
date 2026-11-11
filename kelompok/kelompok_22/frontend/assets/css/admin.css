@@ -1,0 +1,392 @@
+
+/* KlikObat - Admin Dashboard */
+
+:root {
+    --admin-primary: #2563EB;
+    --admin-primary-dark: #1D4ED8;
+    --admin-primary-soft: #EFF6FF;
+    --admin-bg: #F4F7FB;
+    --admin-white: #FFFFFF;
+    --admin-text: #0F172A;
+    --admin-secondary: #64748B;
+    --admin-muted: #94A3B8;
+    --admin-border: #E2E8F0;
+    --admin-shadow: 0 10px 30px -10px rgba(37, 99, 235, .08);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Figtree', system-ui, sans-serif;
+    background: var(--admin-bg);
+    color: var(--admin-text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Layout utama */
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+
+.admin-sidebar {
+    width: 260px;
+    min-height: 100vh;
+    flex-shrink: 0;
+    padding: 28px 18px;
+    background: var(--admin-white);
+    border-right: 1px solid var(--admin-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-logo {
+    padding: 5px 12px;
+    margin-bottom: 42px;
+    color: var(--admin-primary);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.admin-menu {
+    list-style: none;
+}
+
+.admin-menu li {
+    margin-bottom: 8px;
+}
+
+.admin-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 13px 15px;
+    border-radius: 12px;
+    color: var(--admin-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    transition: .2s ease;
+}
+
+.admin-menu a:hover {
+    background: var(--admin-primary-soft);
+    color: var(--admin-primary);
+}
+
+.admin-menu a.active {
+    background: var(--admin-primary);
+    color: white;
+    box-shadow: 0 5px 14px rgba(37, 99, 235, .2);
+}
+
+/* Konten utama */
+
+.admin-main {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+
+.admin-header {
+    min-height: 82px;
+    padding: 18px 32px;
+    background: var(--admin-white);
+    border-bottom: 1px solid var(--admin-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.admin-header h1 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: -.6px;
+    color: var(--admin-text);
+}
+
+.admin-user {
+    padding: 9px 15px;
+    border-radius: 30px;
+    background: var(--admin-primary-soft);
+    color: var(--admin-primary);
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* Area konten */
+
+.admin-content {
+    flex: 1;
+    padding: 32px;
+}
+
+.admin-content h2 {
+    margin-bottom: 22px;
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 25px;
+    font-weight: 800;
+    letter-spacing: -.6px;
+    color: var(--admin-text);
+}
+
+/* Kartu informasi */
+
+.admin-card-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    margin-bottom: 30px;
+}
+
+.admin-card {
+    position: relative;
+    overflow: hidden;
+    padding: 25px;
+    background: var(--admin-white);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    box-shadow: var(--admin-shadow);
+    transition: transform .2s, box-shadow .2s;
+}
+
+.admin-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 30px rgba(37, 99, 235, .1);
+}
+
+.admin-card h3 {
+    margin-bottom: 13px;
+    color: var(--admin-secondary);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.admin-card p {
+    color: var(--admin-primary);
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+}
+
+/* Tabel */
+
+.admin-table-container {
+    width: 100%;
+    overflow-x: auto;
+    padding: 18px;
+    background: var(--admin-white);
+    border: 1px solid var(--admin-border);
+    border-radius: 18px;
+    box-shadow: var(--admin-shadow);
+}
+
+.admin-table {
+    width: 100%;
+    min-width: 550px;
+    border-collapse: collapse;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: 15px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--admin-border);
+    font-size: 14px;
+}
+
+.admin-table th {
+    background: #F8FAFC;
+    color: var(--admin-secondary);
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.admin-table td {
+    color: #334155;
+}
+
+.admin-table tbody tr {
+    transition: background .2s;
+}
+
+.admin-table tbody tr:hover {
+    background: #F8FAFC;
+}
+
+.admin-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* Tombol */
+
+.admin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 19px;
+    background: var(--admin-primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    text-decoration: none;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.admin-btn:hover {
+    background: var(--admin-primary-dark);
+    transform: translateY(-1px);
+}
+
+/* Footer */
+
+.admin-footer {
+    margin-top: auto;
+    padding: 20px 30px;
+    background: var(--admin-white);
+    border-top: 1px solid var(--admin-border);
+    color: var(--admin-muted);
+    text-align: center;
+    font-size: 13px;
+}
+
+/* Form tambahan */
+
+.admin-content input,
+.admin-content select,
+.admin-content textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--admin-border);
+    border-radius: 10px;
+    background: white;
+    color: var(--admin-text);
+    font: inherit;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.admin-content input:focus,
+.admin-content select:focus,
+.admin-content textarea:focus {
+    border-color: var(--admin-primary);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, .1);
+}
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+    .admin-sidebar {
+        width: 220px;
+    }
+
+    .admin-card-container {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .admin-content {
+        padding: 25px;
+    }
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+    .admin-container {
+        flex-direction: column;
+    }
+
+    .admin-sidebar {
+        width: 100%;
+        min-height: auto;
+        padding: 15px;
+        border-right: none;
+        border-bottom: 1px solid var(--admin-border);
+    }
+
+    .admin-logo {
+        margin-bottom: 15px;
+        font-size: 22px;
+    }
+
+    .admin-menu {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+
+    .admin-menu li {
+        margin: 0;
+    }
+
+    .admin-menu a {
+        padding: 10px 12px;
+        font-size: 12px;
+    }
+
+    .admin-header {
+        min-height: 70px;
+        padding: 15px 18px;
+        flex-wrap: wrap;
+    }
+
+    .admin-header h1 {
+        font-size: 19px;
+    }
+
+    .admin-content {
+        padding: 20px 15px;
+    }
+
+    .admin-content h2 {
+        font-size: 22px;
+    }
+
+    .admin-card-container {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .admin-card {
+        padding: 21px;
+    }
+
+    .admin-footer {
+        padding: 17px 12px;
+    }
+}
+
+/* Aksesibilitas */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}

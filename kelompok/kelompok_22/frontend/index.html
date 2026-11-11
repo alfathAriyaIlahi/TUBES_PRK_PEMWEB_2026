@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KlikObat - Etalase Digital Farmasi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,200..800&family=DM+Mono:wght@400;500&family=Figtree:wght@400..700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- Sprite ikon SVG inline -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+            <symbol id="i-cross" viewBox="0 0 24 24">
+                <path fill="currentColor" stroke="none" d="M9 3h6v6h6v6h-6v6H9v-6H3V9h6z" />
+            </symbol>
+            <symbol id="i-search" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="7" />
+                <path d="m20 20-3.5-3.5" />
+            </symbol>
+            <symbol id="i-close" viewBox="0 0 24 24">
+                <path d="M6 6l12 12M18 6 6 18" />
+            </symbol>
+            <symbol id="i-lock" viewBox="0 0 24 24">
+                <rect x="5" y="11" width="14" height="9" rx="2" />
+                <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+            </symbol>
+            <symbol id="i-clock" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" />
+                <path d="M12 7v5l3 2" />
+            </symbol>
+            <symbol id="i-warn" viewBox="0 0 24 24">
+                <path d="M12 3 2 20h20L12 3z" />
+                <path d="M12 10v4M12 17h.01" />
+            </symbol>
+            <symbol id="i-steth" viewBox="0 0 24 24">
+                <path d="M6 3v6a4 4 0 0 0 8 0V3" />
+                <path d="M10 13v2a5 5 0 0 0 10 0v-2" />
+                <circle cx="20" cy="11" r="2" />
+            </symbol>
+            <symbol id="i-back" viewBox="0 0 24 24">
+                <path d="M19 12H5M11 6l-6 6 6 6" />
+            </symbol>
+            <symbol id="i-plus" viewBox="0 0 24 24">
+                <path d="M12 5v14M5 12h14" />
+            </symbol>
+            <symbol id="i-shield" viewBox="0 0 24 24">
+                <path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3z" />
+                <path d="M12 9v6M9 12h6" />
+            </symbol>
+            <symbol id="i-grid" viewBox="0 0 24 24">
+                <rect x="4" y="4" width="7" height="7" rx="2" />
+                <rect x="13" y="4" width="7" height="7" rx="2" />
+                <rect x="4" y="13" width="7" height="7" rx="2" />
+                <rect x="13" y="13" width="7" height="7" rx="2" />
+            </symbol>
+            <symbol id="i-bolt" viewBox="0 0 24 24">
+                <path d="M13 2 4 14h7l-1 8 9-12h-7l1-8z" />
+            </symbol>
+            <symbol id="i-drop" viewBox="0 0 24 24">
+                <path
+                    d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+            </symbol>
+            <symbol id="i-wind" viewBox="0 0 24 24">
+                <path d="M17.7 7.7a2.5 2.5 0 1 1 1.8 4.3H2" />
+                <path d="M9.6 4.6A2 2 0 1 1 11 8H2" />
+                <path d="M12.6 19.4A2 2 0 1 0 14 16H2" />
+            </symbol>
+            <symbol id="i-star" viewBox="0 0 24 24">
+                <path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3z" />
+            </symbol>
+            <symbol id="i-leaf" viewBox="0 0 24 24">
+                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z" />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+            </symbol>
+            <symbol id="i-caps" viewBox="0 0 24 24">
+                <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7z" />
+                <path d="m8.5 8.5 7 7" />
+            </symbol>
+        </defs>
+    </svg>
+
+    <header class="topbar">
+        <div class="wrap topbar-in">
+            <a class="brand" href="#">
+                <span class="logo"><svg class="ic" aria-hidden="true">
+                        <use href="#i-cross" />
+                    </svg></span>
+                <span><small>Etalase Digital Farmasi</small><strong>KlikObat</strong></span>
+            </a>
+            <nav class="nav" aria-label="Navigasi utama">
+                <a href="#katalog">Katalog</a>
+                <a href="#panduan">Panduan Stok</a>
+                <a class="btn-admin" href="../admin/login.php"><span class="ico-circle"><svg class="ic"
+                            aria-hidden="true">
+                            <use href="#i-lock" />
+                        </svg></span>Portal Admin</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="wrap">
+        <div class="search" role="search">
+            <svg class="ic" aria-hidden="true">
+                <use href="#i-search" />
+            </svg>
+            <input id="input-cari" type="text" autocomplete="off" aria-label="Cari obat"
+                placeholder="Cari nama obat, kategori, atau keluhan medis (misal: Paracetamol, demam, lambung)...">
+            <kbd>/</kbd>
+            <button id="btn-reset-cari" class="btn-clear" type="button" aria-label="Bersihkan pencarian" hidden><svg
+                    class="ic" aria-hidden="true">
+                    <use href="#i-close" />
+                </svg></button>
+        </div>
+
+        <section id="hero-banner" class="hero">
+            <div>
+                <span class="hero-pill">Katalog &amp; Edukasi Medis Terpadu</span>
+                <h1>Cek Ketersediaan Obat &amp; Panduan Dosis Secara Akurat</h1>
+                <p>Lihat stok obat terkini, cari berdasarkan nama atau keluhan, lalu baca aturan pakai dan peringatan
+                    tiap obat sebelum digunakan.</p>
+                <a class="btn-white" href="#katalog">Jelajahi Katalog</a>
+            </div>
+            <div class="hero-art">
+                <svg viewBox="0 0 320 240" aria-hidden="true">
+                    <circle cx="170" cy="120" r="105" fill="#fff" fill-opacity=".1" />
+                    <circle cx="170" cy="120" r="70" fill="#fff" fill-opacity=".12" />
+                    <rect x="128" y="52" width="54" height="24" rx="8" fill="#BFDBFE" />
+                    <rect x="120" y="70" width="70" height="120" rx="16" fill="#fff" />
+                    <rect x="130" y="108" width="50" height="50" rx="10" fill="#EFF6FF" />
+                    <path d="M155 118v30M140 133h30" stroke="#2563EB" stroke-width="7" stroke-linecap="round" />
+                    <g transform="rotate(14 245 160)">
+                        <rect x="212" y="115" width="68" height="90" rx="12" fill="#fff" fill-opacity=".95" />
+                        <g fill="#BFDBFE">
+                            <circle cx="232" cy="140" r="9" />
+                            <circle cx="260" cy="140" r="9" />
+                            <circle cx="232" cy="172" r="9" />
+                            <circle cx="260" cy="172" r="9" />
+                        </g>
+                    </g>
+                    <circle cx="70" cy="70" r="26" fill="#fff" fill-opacity=".18" />
+                    <path d="M70 58v24M58 70h24" stroke="#fff" stroke-width="7" stroke-linecap="round" />
+                </svg>
+            </div>
+        </section>
+
+
+        <section id="katalog">
+            <div id="status-data" class="data-notice" role="status" hidden>Server katalog belum terhubung. Data yang ditampilkan adalah salinan lokal dari database dan stoknya mungkin tidak terbaru.</div>
+            <div class="sec-head">
+                <h2>Kategori Obat</h2><span id="info-jumlah-obat" aria-live="polite"></span>
+            </div>
+            <div id="kategori-list" class="chips" role="group" aria-label="Filter kategori obat"></div>
+            <div id="katalog-grid" class="grid"></div>
+        </section>
+    </main>
+
+    <section id="panduan" class="panduan">
+        <div class="wrap">
+            <h2>Panduan Stok</h2>
+            <dl>
+                <div class="st-ok">
+                    <dt>Tersedia</dt>
+                    <dd>lebih dari 5 unit</dd>
+                </div>
+                <div class="st-low">
+                    <dt>Menipis</dt>
+                    <dd>sisa 1&ndash;5 unit</dd>
+                </div>
+                <div class="st-out">
+                    <dt>Habis</dt>
+                    <dd>0 unit</dd>
+                </div>
+            </dl>
+        </div>
+    </section>
+
+    <footer class="site-footer">
+        <div class="wrap footer-in">
+            <p>&copy; 2026 <strong>KlikObat</strong> — Sistem Informasi Katalog Farmasi &amp; Edukasi.</p>
+            <p class="disclaimer">Informasi bersifat edukatif dan tidak menggantikan saran tenaga kesehatan.</p>
+        </div>
+    </footer>
+
+    <!-- Modal Detail Edukasi Obat -->
+    <div id="modal-detail" class="overlay" hidden>
+        <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-nama">
+            <div class="m-top">
+                <div class="m-heading"><span class="m-btn shield"><svg class="ic" aria-hidden="true">
+                            <use href="#i-shield" />
+                        </svg></span><h3>Detail Edukasi Obat</h3></div>
+                <button id="modal-tutup" class="m-btn close" type="button" aria-label="Tutup detail"><svg class="ic"
+                        aria-hidden="true">
+                        <use href="#i-close" />
+                    </svg></button>
+            </div>
+            <div id="modal-visual" class="m-visual"></div>
+            <div id="modal-tags" class="m-tags"></div>
+            <div class="m-row">
+                <h2 id="modal-nama"></h2>
+                <div id="modal-stok" class="stok"></div>
+            </div>
+            <section class="info info-desc">
+                <h4><svg class="ic" aria-hidden="true">
+                        <use href="#i-steth" />
+                    </svg>Deskripsi &amp; Indikasi</h4>
+                <p id="modal-indikasi"></p>
+            </section>
+            <section class="info info-dose">
+                <h4><svg class="ic" aria-hidden="true">
+                        <use href="#i-clock" />
+                    </svg>Aturan Pakai &amp; Dosis</h4>
+                <p id="modal-aturan"></p>
+            </section>
+            <section class="info info-warn">
+                <h4><svg class="ic" aria-hidden="true">
+                        <use href="#i-warn" />
+                    </svg>Peringatan &amp; Kontraindikasi</h4>
+                <p id="modal-peringatan"></p>
+            </section>
+        </div>
+    </div>
+
+    <script src="assets/js/katalog.js" defer></script>
+    <script src="assets/js/modal.js" defer></script>
+</body>
+
+</html>

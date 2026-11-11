@@ -1,0 +1,224 @@
+
+/* =====================================
+   RESPONSIVE TABLET
+===================================== */
+
+@media (max-width: 1024px) {
+    .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+/* =====================================
+   RESPONSIVE MOBILE
+===================================== */
+
+@media (max-width: 768px) {
+
+    html,
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .app-container {
+        display: block;
+        width: 100%;
+        min-height: 100vh;
+    }
+
+    /* Sidebar mobile */
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 260px;
+        max-width: 80%;
+        height: 100vh;
+        z-index: 1000;
+
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+        overflow-y: auto;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    /* Konten utama */
+    .main-content {
+        width: 100%;
+        min-width: 0;
+        margin-left: 0;
+    }
+
+    /* Navbar */
+    .navbar {
+        width: 100%;
+        padding: 14px 18px;
+        gap: 12px;
+    }
+
+    .navbar-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+    }
+
+    .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 38px;
+        height: 38px;
+        border: none;
+        border-radius: 9px;
+        background: #e8f2ed;
+        color: #145c43;
+        font-size: 20px;
+        cursor: pointer;
+    }
+
+    .navbar-right {
+        gap: 8px;
+    }
+
+    .user-info strong {
+        font-size: 12px;
+    }
+
+    .user-info small {
+        font-size: 10px;
+    }
+
+    /* Dashboard */
+    .dashboard-content {
+        width: 100%;
+        padding: 22px 18px;
+        box-sizing: border-box;
+    }
+
+    .welcome-section {
+        align-items: flex-start;
+        margin-bottom: 22px;
+    }
+
+    .welcome-section h2 {
+        font-size: 21px;
+        line-height: 1.4;
+    }
+
+    .welcome-section p {
+        font-size: 12px;
+    }
+
+    /* Summary cards */
+    .summary-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .summary-card {
+        min-width: 0;
+        padding: 16px;
+        box-sizing: border-box;
+    }
+
+    .summary-card h3 {
+        font-size: 18px;
+        overflow-wrap: anywhere;
+    }
+
+    .summary-card p {
+        font-size: 12px;
+    }
+
+    /* Dashboard panels */
+    .dashboard-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+    }
+
+    .dashboard-panel {
+        min-width: 0;
+        padding: 18px;
+        box-sizing: border-box;
+    }
+
+    .panel-heading {
+        margin-bottom: 18px;
+    }
+
+    .panel-heading h3 {
+        font-size: 16px;
+    }
+
+    #financeChart {
+        max-width: 100%;
+    }
+}
+
+/* =====================================
+   SMALL MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+
+    .navbar {
+        padding: 12px 14px;
+    }
+
+    .navbar-left h2 {
+        font-size: 16px;
+    }
+
+    .navbar-left p {
+        font-size: 10px;
+    }
+
+    .user-info {
+        display: none;
+    }
+
+    .dashboard-content {
+        padding: 18px 14px;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .summary-card {
+        padding: 18px;
+    }
+
+    .summary-card h3 {
+        font-size: 21px;
+    }
+
+    .dashboard-panel {
+        padding: 16px;
+    }
+}
+
+/* =====================================
+   DESKTOP
+===================================== */
+
+@media (min-width: 769px) {
+    .menu-toggle {
+        display: none;
+    }
+} 

@@ -1,8 +1,7 @@
 <?php
 session_start();
-require_once '../config/database.php'; // Panggil koneksi PDO
+require_once '../config/database.php';
 
-// Kalau admin udah login, lempar langsung ke dashboard
 if (isset($_SESSION['admin_id'])) {
     header("Location: dashboard.php");
     exit;
@@ -16,12 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($username) && !empty($password)) {
         try {
-            // Cari user berdasarkan username
             $stmt = $pdo->prepare("SELECT id, password_hash FROM admin WHERE username = :username LIMIT 1");
             $stmt->execute([':username' => $username]);
             $admin = $stmt->fetch();
 
-            // Verifikasi password dengan hash yang ada di database
             if ($admin && password_verify($password, $admin['password_hash'])) {
                 $_SESSION['admin_id'] = $admin['id'];
                 header("Location: dashboard.php");

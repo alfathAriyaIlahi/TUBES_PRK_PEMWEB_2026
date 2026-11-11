@@ -62,6 +62,10 @@ jobs:
 
           echo "✅ Lolos uji isolasi: Perubahan hanya dilakukan pada folder kelompok/$GROUPS_TOUCHED/"
 
+          # 3. Sinkronkan folder .github/ resmi dari repo utama agar skrip validator selalu tersedia
+          echo "Memuat skrip validator dan mapping resmi dari origin/${{ github.base_ref }}..."
+          git checkout origin/${{ github.base_ref }} -- .github/
+
       - name: 3. Cek Ukuran File (Maksimal 5MB per file)
         run: |
           CHANGED_FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD)
@@ -84,7 +88,16 @@ jobs:
           php-version: '8.2'
           coverage: none
 
-      - name: 5. Cek Sintaks PHP Native (PHP Lint)
+      - name: 5. Validasi Kepemilikan Fork Kelompok
+        env:
+          HEAD_REPO_OWNER: ${{ github.event.pull_request.head.repo.owner.login }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD)
+          GROUPS_TOUCHED=$(echo "$CHANGED_FILES" | cut -d'/' -f2 | sort -u | head -n 1)
+          GROUP_TOUCHED="$GROUPS_TOUCHED" php .github/scripts/validate_fork.php
+
+      - name: 6. Cek Sintaks PHP Native (PHP Lint)
         run: |
           CHANGED_PHP_FILES=$(git diff --name-only --diff-filter=d origin/${{ github.base_ref }}...HEAD | grep -E '\.php$' || true)
           
@@ -109,7 +122,18 @@ jobs:
 
           echo "✅ Seluruh file PHP bebas dari syntax error."
 
-      - name: 6. Auto-Merge PR Jika Lolos Semua Validasi
+      - name: 7. Buat & Kirim Rekapitulasi Kontribusi Anggota ke PR
+        if: success()
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BASE_REF: ${{ github.base_ref }}
+          REPO: ${{ github.repository }}
+        run: |
+          php .github/scripts/pr_rekap_kontribusi.php
+
+      - name: 8. Auto-Merge PR Jika Lolos Semua Validasi
         if: success()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -117,7 +141,7 @@ jobs:
           echo "✅ Seluruh validasi lolos! Melakukan Auto-Merge Pull Request #${{ github.event.pull_request.number }}..."
           gh pr merge ${{ github.event.pull_request.number }} --merge --repo ${{ github.repository }}
 
-      - name: 7. Auto-Close PR Jika Gagal Validasi CI/CD
+      - name: 9. Auto-Close PR Jika Gagal Validasi CI/CD
         if: failure()
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -125,6 +149,6 @@ jobs:
           echo "❌ Validasi gagal! Menutup Pull Request #${{ github.event.pull_request.number }} secara otomatis..."
           gh pr close ${{ github.event.pull_request.number }} --repo ${{ github.repository }} --comment "❌ **Pull Request Ditolak dan Ditutup Otomatis oleh Sistem CI/CD.**
 
-          Kode yang Anda kirimkan melanggar ketentuan repositori (salah penamaan folder \`kelompok/kelompok_XX/\`, mengubah file di luar folder kelompok sendiri, ukuran file > 5MB, atau terdapat *syntax error* PHP).
+          Kode yang Anda kirimkan melanggar ketentuan repositori (salah penamaan folder \`kelompok/kelompok_XX/\`, mengubah file di luar folder kelompok sendiri, PR dikirim dari fork yang tidak sesuai dengan folder kelompok, ukuran file > 5MB, atau terdapat *syntax error* PHP).
 
           Silakan klik tombol **Details** pada bagian *checks* yang gagal di atas untuk melihat letak kesalahan Anda, perbaiki di lokal, lalu buat Pull Request baru."

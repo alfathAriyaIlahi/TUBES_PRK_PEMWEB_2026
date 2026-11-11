@@ -1,0 +1,224 @@
+@import url('./core.css');
+@import url('./layout.css');
+
+/* =====================================
+    DASHBOARD USER - ULTRA ELEGAN REDESIGN
+===================================== */
+
+:root {
+  --primary-maroon: #8b0000;
+  --primary-hover: #660000;
+  --bg-page: #f4f6f9; /* Background abu-abu profesional yang lembut */
+  --card-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-light: #e2e8f0;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --shadow-card: 0 10px 30px -5px rgba(15, 23, 42, 0.05);
+}
+
+/* Mengatur background keseluruhan halaman web */
+body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Kontainer Utama Dashboard */
+.dashboard-container {
+  width: 100%;
+  padding: 36px 40px;
+  background: var(--card-bg);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Header Halaman Beranda di dalam Dashboard */
+.dashboard-container .page-heading {
+  margin-bottom: 24px;
+  padding: 0 0 24px;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border-light);
+  border-radius: 0;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dashboard-container .page-heading h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.03em;
+}
+
+/* Judul Section dengan Aksen Garis Marun Modern */
+.dashboard-container .section-heading {
+  position: relative;
+  margin: 0 0 20px;
+  padding: 0 0 0 14px;
+  background: transparent;
+  border: none;
+  border-bottom: none;
+  border-radius: 0;
+  box-shadow: none;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.dashboard-container .section-heading::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 18px;
+  background: var(--primary-maroon);
+  border-radius: 4px;
+}
+
+/* Bagian Pengumuman */
+.dashboard-container .announcement-section {
+  margin-bottom: 32px;
+  background: #fafbfc;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 24px;
+}
+
+.dashboard-container .announcement-empty,
+.dashboard-container .empty-state {
+  padding: 36px 24px;
+  margin: 0;
+  background: #ffffff;
+  border: 2px dashed #cbd5e1;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+}
+
+.dashboard-container .announcement-card {
+  background: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dashboard-container .announcement-card:hover {
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+/* Daftar Laporan */
+.dashboard-container .report-list {
+  display: grid;
+  gap: 16px;
+}
+
+.dashboard-container .report-row {
+  background: #fafbfc;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  transition: all 0.2s ease;
+}
+
+.dashboard-container .report-row:hover {
+  border-color: #94a3b8;
+  background: #ffffff;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.04);
+}
+
+/* Garis Pemisah Antarbagian */
+.dashboard-divider {
+  width: 100%;
+  height: 1px;
+  margin: 36px 0;
+  background: var(--border-light);
+}
+
+/* Tombol Utama (Buat Laporan, dll) */
+.dashboard-container .btn-danger,
+.dashboard-container .btn-primary {
+  background: var(--primary-maroon);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.dashboard-container .btn-danger:hover,
+.dashboard-container .btn-primary:hover {
+  background: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(139, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .dashboard-container {
+    padding: 20px;
+    margin: 16px;
+    border-radius: 12px;
+  }
+  
+  .dashboard-container .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* =====================================
+    PERBESAR UKURAN FONT NAVBAR & MENU
+===================================== */
+
+/* Logo dan Subteks */
+.navbar-brand .brand-title, 
+.brand-name, 
+.dashboard-container .page-heading h1 {
+  font-size: 1.25rem !important; /* Memperbesar judul logo */
+}
+
+/* Menu Navigasi Atas (Beranda, Pengaduan, Riwayat) */
+.navbar-nav .nav-link,
+.nav-menu a,
+header nav a {
+  font-size: 1.05rem !important; /* Membuat teks menu lebih besar & nyaman dibaca */
+  font-weight: 500;
+}
+
+/* Informasi Profil Pengguna (Nama & Status Mahasiswa) */
+.user-profile .user-name,
+.profile-info .name {
+  font-size: 1rem !important;
+  font-weight: 600;
+}
+
+.user-profile .user-role,
+.profile-info .role,
+.user-profile small {
+  font-size: 0.85rem !important; /* Memperbesar subteks role agar terbaca jelas */
+}
+
+/* Tombol Keluar / Tombol Aksi di Header */
+.navbar .btn,
+header .btn-outline-danger,
+.user-profile .btn {
+  font-size: 0.95rem !important;
+  padding: 8px 16px !important;
+}
