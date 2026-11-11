@@ -139,7 +139,7 @@ function date_id(?string $date, bool $withTime = false): string
     $ts = strtotime($date);
     if (!$ts) return '-';
     $result = date('j', $ts) . ' ' . month_id((int)date('n', $ts)) . ' ' . date('Y', $ts);
-    return $withTime ? $result . ' Ãƒâ€šÃ‚Â· ' . date('H:i', $ts) : $result;
+    return $withTime ? $result . ' · ' . date('H:i', $ts) : $result;
 }
 
 function excerpt(string $text, int $length = 150): string
@@ -147,11 +147,11 @@ function excerpt(string $text, int $length = 150): string
     $plain = trim(strip_tags($text));
     if (function_exists('mb_strlen') && function_exists('mb_substr')) {
         if (mb_strlen($plain, 'UTF-8') <= $length) return $plain;
-        return mb_substr($plain, 0, $length, 'UTF-8') . 'ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦';
+        return mb_substr($plain, 0, $length, 'UTF-8') . '…';
     }
     $chars = preg_split('//u', $plain, -1, PREG_SPLIT_NO_EMPTY);
-    if ($chars === false) return strlen($plain) <= $length ? $plain : substr($plain, 0, $length) . 'ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦';
-    return count($chars) <= $length ? $plain : implode('', array_slice($chars, 0, $length)) . 'ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¦';
+    if ($chars === false) return strlen($plain) <= $length ? $plain : substr($plain, 0, $length) . '…';
+    return count($chars) <= $length ? $plain : implode('', array_slice($chars, 0, $length)) . '…';
 }
 
 function slugify(string $text): string

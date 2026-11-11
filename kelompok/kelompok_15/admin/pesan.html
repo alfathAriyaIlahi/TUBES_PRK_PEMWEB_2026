@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="id">
+  <!-- FITUR INBOX PESAN ADMIN - ORANG 3 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pena Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script type="module" src="../js/app.js"></script>
+  </head>
+  <body class="min-h-screen bg-canvas font-sans text-slate-800" data-layout="admin" data-api="../api/admin_pesan.php">
+    <script type="text/x-template" id="page-template">
+    {{#msg_flash_success}}
+      <div class="flash success">{{msg}}</div>
+    {{/msg_flash_success}}
+      <div class="mb-5">
+        <h2 class="text-xl font-extrabold text-ink">Inbox Pesan Kontak</h2>
+        <p class="mt-1 text-sm text-slate-500">Pesan yang dikirim melalui formulir kontak publik.</p>
+      </div>
+      <form class="mb-5 grid gap-3 border border-slate-200 bg-white p-4 sm:grid-cols-4">
+        <input class="form-control sm:col-span-2" name="q" value="{{q}}" placeholder="Cari nama, email, atau subjek">
+        <select class="form-control" name="status">
+          <option value="">Semua status</option>
+          <option value="new" {{status_new_selected}}>Baru</option>
+          <option value="read" {{status_read_selected}}>Dibaca</option>
+          <option value="replied" {{status_replied_selected}}>Dibalas</option>
+          <option value="archived" {{status_archived_selected}}>Diarsipkan</option>
+        </select>
+        <button class="btn-primary">Filter</button>
+      </form>
+      <div class="grid gap-5 xl:grid-cols-12">
+        <section class="overflow-hidden border border-slate-200 bg-white xl:col-span-7">
+          <div class="overflow-x-auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Pengirim</th>
+                  <th>Subjek</th>
+                  <th>Tanggal</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#messages}}
+                <tr class="{{selectedId_int_m_id_bg_blue_50}}">
+                  <td>
+                    <a href="?id={{int_m_id}}" class="font-semibold text-ink hover:text-bluebrand">{{m_name}}</a>
+                    <p class="text-xs text-slate-500">{{m_email}}</p>
+                  </td>
+                  <td><a href="?id={{int_m_id2}}" class="text-sm text-slate-700">{{m_subject}}</a></td>
+                  <td class="whitespace-nowrap text-xs text-slate-500">{{date_id_m_created_at}}</td>
+                  <td><span class="status status-{{m_status}}">{{ucfirst_m_status}}</span></td>
+                </tr>
+              {{/messages}}{{#messages2}}
+                <tr>
+                  <td colspan="4" class="py-10 text-center text-slate-500">Belum ada pesan.</td>
+                </tr>
+              {{/messages2}}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <aside class="h-fit border border-slate-200 bg-white p-5 xl:col-span-5">
+        {{#selected}}
+          <div class="flex items-start justify-between gap-3">
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-bluebrand">Detail Pesan</p>
+              <h3 class="mt-2 text-lg font-extrabold text-ink">{{selected_subject}}</h3>
+            </div>
+            <span class="status status-{{selected_status}}">{{ucfirst_selected_status}}</span>
+          </div>
+          <div class="mt-4 border-y border-slate-200 py-3 text-sm">
+            <p class="font-semibold text-ink">{{selected_name}}</p>
+            <a class="text-bluebrand" href="mailto:{{selected_email}}">{{selected_email2}}</a>
+            <p class="mt-1 text-xs text-slate-500">{{date_id_selected_created_at_true}}</p>
+          </div>
+          <p class="mt-5 whitespace-pre-line text-sm leading-7 text-slate-700">{{selected_message}}</p>
+          <div class="mt-5 flex flex-wrap gap-2">
+            <a class="btn-primary" href="mailto:{{selected_email3}}?subject=Re%3A%20{{rawurlencode_selected_subject}}">Balas via Email</a>
+          {{#messageActions}}
+            <form method="post" action="{{root}}api/admin_messages_action.php"><input type="hidden" name="csrf_token" value="{{csrf_token}}"><input type="hidden" name="id" value="{{int_selected_id}}"><input type="hidden" name="status" value="{{s}}"><button class="btn-secondary">{{label}}</button></form>
+          {{/messageActions}}
+            <form method="post" action="{{root}}api/admin_messages_delete.php" data-confirm="Hapus pesan ini?"><input type="hidden" name="csrf_token" value="{{csrf_delete}}"><input type="hidden" name="id" value="{{int_selected_id}}"><button class="btn-secondary text-red-700">Hapus</button></form>
+          </div>
+        {{/selected}}{{#otherwise_selected}}
+          <div class="py-12 text-center">
+            <span class="material-symbols-outlined text-4xl text-slate-300">mail</span>
+            <h3 class="mt-3 font-bold text-ink">Pilih pesan</h3>
+            <p class="mt-1 text-sm text-slate-500">Pilih salah satu pesan untuk membaca detailnya.</p>
+          </div>
+        {{/otherwise_selected}}
+        </aside>
+      </div>
+    </script>
+    <noscript>Aktifkan JavaScript untuk membuka Pena Kampus.</noscript>
+  </body>
+</html>

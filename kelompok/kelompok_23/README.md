@@ -73,11 +73,15 @@ Tujuan pengembangan FEBMart adalah:
 - Menambahkan produk ke keranjang belanja.
 - Mengubah jumlah barang.
 - Menghapus produk dari keranjang.
+- Menyinkronkan harga dan stok keranjang dengan data terbaru.
 - Menghitung subtotal dan total pembayaran.
 - Memasukkan nominal pembayaran.
+- Menyediakan shortcut nominal pembayaran.
 - Menghitung uang kembalian secara otomatis.
 - Menyimpan transaksi dan detail transaksi.
 - Memotong stok barang secara otomatis setelah transaksi berhasil.
+- Memvalidasi input transaksi dan melindungi aksi kasir dengan CSRF token.
+- Menampilkan pesan error jika tabel transaksi gagal disiapkan.
 
 ### D. Riwayat Transaksi, Laporan & Cetak Struk
 - Menampilkan riwayat transaksi.

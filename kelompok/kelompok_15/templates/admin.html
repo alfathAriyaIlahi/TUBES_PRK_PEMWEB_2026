@@ -1,0 +1,47 @@
+<!-- FITUR SHELL ADMIN - ORANG 5 -->
+<div class="min-h-screen md:flex">
+  <aside id="admin-sidebar" class="fixed inset-y-0 left-0 z-50 flex w-64 -translate-x-full flex-col bg-ink text-white transition-transform md:static md:translate-x-0">
+    <a href="{{root}}admin/dashboard.html" class="flex h-20 items-center gap-3 border-b border-white/10 px-5"><span class="grid h-10 w-10 place-items-center rounded bg-amberbrand text-ink"><span class="material-symbols-outlined text-2xl">newspaper</span></span><span><strong class="block text-lg">Pena Kampus</strong><small class="text-xs text-slate-300">Sistem Editorial</small></span></a>
+    <nav class="flex-1 space-y-1 overflow-y-auto px-3 py-5">
+      <p class="px-3 pb-2 text-[10px] font-bold uppercase tracking-[.18em] text-slate-400">Menu Utama</p>
+      <a href="{{root}}admin/dashboard.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassDashboard}}"><span class="material-symbols-outlined text-[20px]">dashboard</span>Dashboard</a>
+      <a href="{{root}}admin/berita.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassBerita}}"><span class="material-symbols-outlined text-[20px]">article</span>Manajemen Berita</a>
+    {{#is_admin}}
+      <a href="{{root}}admin/kategori.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassKategori}}"><span class="material-symbols-outlined text-[20px]">category</span>Kategori</a>
+      <p class="px-3 pb-2 pt-6 text-[10px] font-bold uppercase tracking-[.18em] text-slate-400">Administrasi</p>
+      <a href="{{root}}admin/fakultas.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassFakultas}}"><span class="material-symbols-outlined text-[20px]">account_balance</span>Fakultas</a>
+      <a href="{{root}}admin/akun.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassAkun}}"><span class="material-symbols-outlined text-[20px]">group</span>Pengguna</a>
+    {{/is_admin}}
+      <a href="{{root}}admin/komentar.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassKomentar}}"><span class="material-symbols-outlined text-[20px]">forum</span>Moderasi Komentar</a>
+    {{#is_admin2}}
+      <a href="{{root}}admin/pesan.html" class="flex items-center gap-3 rounded px-3 py-2.5 text-sm {{navClassPesan}}"><span class="material-symbols-outlined text-[20px]">mail</span>Pesan Kontak</a>
+    {{/is_admin2}}
+    </nav>
+    <div class="border-t border-white/10 p-4">
+      <div class="mb-3">
+        <p class="truncate text-sm font-semibold">{{currentAdminUser_name}}</p>
+        <p class="text-xs text-slate-400">{{strtoupper_currentAdminUser_role}}{{facultySuffix}}</p>
+      </div>
+      <a href="{{root}}index.html" class="mb-2 flex items-center gap-2 rounded px-3 py-2 text-sm text-slate-300 hover:bg-white/10"><span class="material-symbols-outlined text-lg">public</span>Lihat Portal</a>
+      <form method="post" action="{{root}}api/admin_logout.php"><input type="hidden" name="csrf_token" value="{{csrf_token}}"><button type="submit" class="flex w-full items-center gap-2 rounded px-3 py-2 text-left text-sm text-slate-300 hover:bg-white/10"><span class="material-symbols-outlined text-lg">logout</span>Keluar</button></form>
+    </div>
+  </aside>
+  <div id="admin-backdrop" class="fixed inset-0 z-40 hidden bg-slate-950/40 md:hidden"></div>
+  <div class="min-w-0 flex-1">
+    <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-slate-200 bg-white px-4 sm:px-6">
+      <div class="flex items-center gap-3">
+        <button id="admin-menu-button" class="rounded border border-slate-200 p-2 text-ink md:hidden" aria-label="Buka menu"><span class="material-symbols-outlined">menu</span></button>
+        <div>
+          <p class="text-xs text-slate-500">Pena Kampus / CMS</p>
+          <h1 class="text-sm font-bold text-ink sm:text-base">{{adminTitle}}</h1>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="text-sm font-semibold text-slate-800">{{currentAdminUser_name2}}</p>
+        <p class="text-xs text-slate-500">{{date_d_m_Y}}</p>
+      </div>
+    </header>
+    <main class="mx-auto max-w-[1440px] p-4 sm:p-6 lg:p-8"> {{>content}}    </main>
+    <footer class="border-t border-slate-200 bg-white px-6 py-4 text-center text-xs text-slate-500">Pena Kampus CMS · Proyek akademik mahasiswa</footer>
+  </div>
+</div>

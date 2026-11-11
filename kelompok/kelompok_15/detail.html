@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="id">
+  <!-- FITUR ARTIKEL & KOMENTAR - ORANG 3 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pena Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module" src="js/app.js"></script>
+  </head>
+  <body class="bg-canvas font-sans text-slate-800" data-layout="public" data-api="api/detail.php">
+    <script type="text/x-template" id="page-template">
+      <article class="mx-auto max-w-7xl px-4 py-9 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-4xl">
+          <p class="text-xs text-slate-500"><a href="{{root}}index.html">Beranda</a> / <a href="{{root}}berita.html">Berita</a> / Artikel</p>
+          <div class="mt-5 flex flex-wrap gap-2 text-[11px] font-bold uppercase tracking-wide"><span class="bg-orange-50 px-2 py-1 text-orange-800">{{article_category_name}}</span><span class="bg-slate-100 px-2 py-1 text-slate-700">{{article_faculty_name_Universitas}}</span></div>
+          <h1 class="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-ink sm:text-4xl">{{article_title}}</h1>
+        {{#article_excerpt}}
+          <p class="mt-4 text-lg leading-8 text-slate-600">{{article_excerpt2}}</p>
+        {{/article_excerpt}}
+          <div class="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-y border-slate-200 py-4 text-xs text-slate-500"><span class="font-semibold text-slate-800">{{article_author_name}}</span><span>{{date_id_article_published_at}}</span><span>{{readerCount}} pembaca</span></div>
+        </div>
+        <figure class="mx-auto mt-7 max-w-5xl">
+          <img class="max-h-[560px] w-full object-cover" src="{{article_image_article_featured_image}}" alt="{{article_title2}}">
+          <figcaption class="mt-2 text-xs text-slate-500">{{imageCaption}}</figcaption>
+        </figure>
+        <div class="mx-auto mt-8 grid max-w-6xl gap-10 lg:grid-cols-12">
+          <div class="lg:col-span-8">
+            <div class="article-content">{{nl2br_e_article_content}}</div>
+            <section id="komentar" class="mt-12 border-t border-slate-200 pt-8">
+              <h2 class="text-2xl font-extrabold text-ink">Komentar Pembaca ({{count_comments}})</h2>
+              <p class="mt-2 text-sm text-slate-500">Komentar ditinjau oleh pengelola sebelum ditampilkan.</p>
+            {{#success_flash_success}}
+              <div class="flash success mt-4">{{success}}</div>
+            {{/success_flash_success}}{{#commentError}}
+              <div class="flash error mt-4">{{commentError2}}</div>
+            {{/commentError}}
+              <form method="post" class="mt-5 grid gap-3 border border-slate-200 bg-white p-5 sm:grid-cols-2">
+                <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+                <input type="hidden" name="action" value="comment">
+                <div><label class="mb-1 block text-sm font-semibold">Nama *</label><input class="form-control" name="name" maxlength="120" required value="{{commentInput_name}}"></div>
+                <div><label class="mb-1 block text-sm font-semibold">Email (opsional)</label><input class="form-control" type="email" name="email" maxlength="190" value="{{commentInput_email}}"></div>
+                <div class="sm:col-span-2"><label class="mb-1 block text-sm font-semibold">Komentar *</label><textarea class="form-control" name="content" rows="4" maxlength="3000" required>{{commentInput_content}}</textarea></div>
+                <div class="sm:col-span-2"><button class="btn-primary">Kirim Komentar</button></div>
+              </form>
+              <div class="mt-5 space-y-4">
+              {{#comments}}
+                <div class="border-b border-slate-200 pb-4">
+                  <div class="flex items-center justify-between gap-2"><strong class="text-sm text-ink">{{comment_commenter_name}}</strong><span class="text-xs text-slate-500">{{date_id_comment_created_at}}</span></div>
+                  <p class="mt-2 whitespace-pre-line text-sm leading-6 text-slate-700">{{comment_content}}</p>
+                </div>
+              {{/comments}}{{#comments2}}
+                <p class="py-5 text-sm text-slate-500">Belum ada komentar yang ditampilkan.</p>
+              {{/comments2}}
+              </div>
+            </section>
+          </div>
+          <aside class="lg:col-span-4">
+            <div class="border border-slate-200 bg-white p-5">
+              <h2 class="text-lg font-extrabold text-ink">Artikel Terkait</h2>
+            {{#related}}{{>compact}}{{/related}}{{#related2}}
+              <p class="mt-4 text-sm text-slate-500">Belum ada artikel terkait.</p>
+            {{/related2}}
+            </div>
+            <a class="btn-secondary mt-4 w-full" href="{{root}}berita.html">Kembali ke semua berita</a>
+          </aside>
+        </div>
+      </article>
+    </script>
+    <noscript>Aktifkan JavaScript untuk membuka Pena Kampus.</noscript>
+  </body>
+</html>

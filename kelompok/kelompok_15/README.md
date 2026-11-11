@@ -157,8 +157,9 @@ C:\xampp\htdocs\pena_kampus
 ### Langkah 3 — Buat Database
 
 1. Buka **phpMyAdmin** melalui browser (`http://localhost/phpmyadmin`).
-2. Buat database baru bernama `pena_kampus_mvp`.
-3. Impor file `sql/database.sql` ke dalam database `pena_kampus_mvp`.
+2. Gunakan database bernama `pena_kampus` (buat baru dengan nama ini bila belum ada).
+3. Impor file `sql/database.sql` ke dalam database `pena_kampus`.
+4. Catatan: file `database.sql` sudah berisi `CREATE DATABASE pena_kampus` dan `USE pena_kampus`, jadi nama database **wajib** `pena_kampus` (bukan `pena_kampus_mvp`).
 
 ### Langkah 4 — Konfigurasi Database
 

@@ -53,6 +53,7 @@
                   <td><span class="status {{statusClass}}">{{c_is_active_Aktif_Nonaktif}}</span></td>
                   <td class="whitespace-nowrap">
                     <a class="font-semibold text-bluebrand" href="?edit={{int_c_id}}">Edit</a>
+                    <form class="ml-3 inline" method="post" action="{{root}}api/admin_categories_delete.php" data-confirm="Hapus kategori ini?"><input type="hidden" name="csrf_token" value="{{csrf_token}}"><input type="hidden" name="id" value="{{int_c_id}}"><button class="font-semibold text-red-700">Hapus</button></form>
                     <form class="ml-3 inline" method="post" action="{{root}}api/admin_categories_toggle.php" data-confirm="{{confirmToggle}}"><input type="hidden" name="csrf_token" value="{{csrf_token}}"><input type="hidden" name="id" value="{{int_c_id2}}"><input type="hidden" name="active" value="{{c_is_active_0_1}}"><button class="font-semibold {{toggleClass}}">{{c_is_active_Nonaktifkan_Aktifkan}}</button></form>
                   </td>
                 </tr>

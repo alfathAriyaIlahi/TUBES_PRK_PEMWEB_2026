@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="id">
+  <!-- FITUR DASHBOARD ADMIN - ORANG 4 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pena Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script type="module" src="../js/app.js"></script>
+  </head>
+  <body class="min-h-screen bg-canvas font-sans text-slate-800" data-layout="admin" data-api="../api/admin_dashboard.php">
+    <script type="text/x-template" id="page-template">
+    {{#msg_flash_success}}
+      <div class="flash success">{{msg}}</div>
+    {{/msg_flash_success}}
+      <div class="mb-7 flex flex-wrap items-end justify-between gap-3">
+        <div>
+          <p class="text-sm text-slate-500">Ringkasan pengelolaan portal</p>
+          <h2 class="mt-1 text-2xl font-extrabold text-ink">Selamat datang, {{user_name}}</h2>
+          <p class="mt-1 text-sm text-slate-500">{{roleLabel}}</p>
+        </div>
+        <a class="btn-primary" href="{{root}}admin/berita-form.html"><span class="material-symbols-outlined text-lg">add</span>Tulis Berita</a>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      {{#summaryCards}}
+        <div class="border border-slate-200 bg-white p-5">
+          <div class="flex items-center justify-between">
+            <p class="text-sm font-semibold text-slate-500">{{card_0}}</p>
+            <span class="material-symbols-outlined text-2xl text-bluebrand">{{card_2}}</span>
+          </div>
+          <p class="mt-4 text-3xl font-extrabold text-ink">{{string_card_1}}</p>
+        </div>
+      {{/summaryCards}}
+      </div>
+      <div class="mt-8 grid gap-6 xl:grid-cols-3">
+        <section class="border border-slate-200 bg-white xl:col-span-2">
+          <div class="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+            <div>
+              <h3 class="font-extrabold text-ink">Berita Terbaru</h3>
+              <p class="mt-1 text-xs text-slate-500">Artikel yang terakhir diperbarui.</p>
+            </div>
+            <a href="{{root}}admin/berita.html" class="text-sm font-bold text-bluebrand">Lihat semua →</a>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Judul</th>
+                  <th>Fakultas</th>
+                  <th>Status</th>
+                  <th>Diperbarui</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#recent}}
+                <tr>
+                  <td>
+                    <a class="font-semibold text-ink hover:text-bluebrand" href="{{url_admin_berita_form_html_id_a_id}}">{{a_title}}</a>
+                    <div class="mt-1 text-xs text-slate-500">{{a_category_name}}</div>
+                  </td>
+                  <td>{{a_faculty_name_Universitas}}</td>
+                  <td><span class="status status-{{a_status}}">{{ucfirst_a_status}}</span></td>
+                  <td class="whitespace-nowrap text-xs text-slate-500">{{date_id_a_updated_at}}</td>
+                </tr>
+              {{/recent}}{{#recent2}}
+                <tr>
+                  <td colspan="4" class="py-10 text-center text-slate-500">Belum ada artikel.</td>
+                </tr>
+              {{/recent2}}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <aside class="space-y-4">
+          <div class="border border-slate-200 bg-white p-5">
+            <h3 class="font-extrabold text-ink">Aksi Cepat</h3>
+            <div class="mt-4 grid gap-2"><a class="btn-primary" href="{{root}}admin/berita-form.html">+ Tulis berita</a><a class="btn-secondary" href="{{root}}admin/berita.html">Kelola berita</a>{{#is_admin}}<a class="btn-secondary" href="{{root}}admin/akun.html">Kelola pengguna</a>{{/is_admin}}</div>
+          </div>
+          <div class="border border-slate-200 bg-white p-5">
+            <h3 class="font-extrabold text-ink">Cakupan Portal</h3>
+            <p class="mt-2 text-sm text-slate-600">Pena Kampus mengelola berita dari seluruh fakultas Universitas Lampung.</p>
+            <p class="mt-4 text-3xl font-extrabold text-ink">{{facultyCount}}</p>
+            <p class="text-xs text-slate-500">Fakultas aktif</p>
+          </div>
+        </aside>
+      </div>
+    </script>
+    <noscript>Aktifkan JavaScript untuk membuka Pena Kampus.</noscript>
+  </body>
+</html>

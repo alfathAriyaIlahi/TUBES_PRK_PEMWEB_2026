@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="id">
+  <!-- FITUR MANAJEMEN AKUN & HAK AKSES - ORANG 4 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pena Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script type="module" src="../js/app.js"></script>
+  </head>
+  <body class="min-h-screen bg-canvas font-sans text-slate-800" data-layout="admin" data-api="../api/admin_akun_form.php">
+    <script type="text/x-template" id="page-template">
+    {{#error}}
+      <div class="flash error">{{error2}}</div>
+    {{/error}}
+      <div class="max-w-3xl border border-slate-200 bg-white p-6">
+        <h2 class="text-xl font-extrabold text-ink">{{id_Edit_Akun_Tambah_Akun_Baru}}</h2>
+        <p class="mt-1 text-sm text-slate-500">Editor harus ditugaskan ke satu fakultas.</p>
+        <form method="post" class="mt-6 grid gap-4 sm:grid-cols-2">
+          <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+          <div><label class="mb-1 block text-sm font-semibold">Nama lengkap *</label><input class="form-control" name="name" maxlength="120" required value="{{value_name}}"></div>
+          <div><label class="mb-1 block text-sm font-semibold">Email *</label><input class="form-control" type="email" name="email" maxlength="190" required value="{{value_email}}"></div>
+          <div>
+            <label class="mb-1 block text-sm font-semibold">Role *</label>
+            <select class="form-control" name="role">
+              <option value="editor" {{value_role_editor_editor_selected}}>Editor</option>
+              <option value="admin" {{value_role_admin_selected}}>Admin</option>
+            </select>
+          </div>
+          <div>
+            <label class="mb-1 block text-sm font-semibold">Fakultas (wajib untuk editor)</label>
+            <select class="form-control" name="faculty_id">
+              <option value="0">Pilih fakultas</option>
+            {{#faculties}}
+              <option value="{{int_faculty_id}}" {{facultySelected}}> {{facultyLabel}} </option>
+            {{/faculties}}
+            </select>
+          </div>
+          <div><label class="mb-1 block text-sm font-semibold">Kata sandi {{id_kosongkan_jika_tidak_diubah_awal}}</label><input class="form-control" type="password" name="password" {{id_required}} minlength="8" autocomplete="new-password"></div>
+          <div>
+            <label class="mb-1 block text-sm font-semibold">Status</label>
+            <select class="form-control" name="status">
+              <option value="active" {{value_status_active_active_selected}}>Aktif</option>
+              <option value="inactive" {{value_status_inactive_selected}}>Nonaktif</option>
+            </select>
+          </div>
+          <div class="flex gap-2 sm:col-span-2"><button class="btn-primary">Simpan Pengguna</button><a class="btn-secondary" href="{{root}}admin/akun.html">Batal</a></div>
+        </form>
+      </div>
+    </script>
+    <noscript>Aktifkan JavaScript untuk membuka Pena Kampus.</noscript>
+  </body>
+</html>

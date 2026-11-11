@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="id">
+  <!-- FITUR MANAJEMEN FAKULTAS ADMIN - ORANG 1 -->
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pena Kampus</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="../css/app.css">
+    <link rel="stylesheet" href="../css/admin.css">
+    <script type="module" src="../js/app.js"></script>
+  </head>
+  <body class="min-h-screen bg-canvas font-sans text-slate-800" data-layout="admin" data-api="../api/admin_fakultas.php">
+    <script type="text/x-template" id="page-template">
+    {{#msg_flash_success}}
+      <div class="flash success">{{msg}}</div>
+    {{/msg_flash_success}}
+      <div class="mb-5">
+        <h2 class="text-xl font-extrabold text-ink">Daftar Fakultas</h2>
+        <p class="mt-1 text-sm text-slate-500">Data fakultas menjadi dasar pengelompokan berita dan penugasan editor.</p>
+      </div>
+      <div class="grid gap-6 xl:grid-cols-3">
+        <section class="border border-slate-200 bg-white xl:col-span-2">
+          <div class="overflow-x-auto">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Kode</th>
+                  <th>Fakultas</th>
+                  <th>Artikel</th>
+                  <th>Status</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+              {{#rows}}
+                <tr>
+                  <td class="font-bold text-ink">{{f_code}}</td>
+                  <td>
+                    <p class="font-semibold">{{f_name}}</p>
+                    <p class="text-xs text-slate-500">{{f_slug}}</p>
+                  </td>
+                  <td>{{int_f_article_count}}</td>
+                  <td><span class="status {{statusClass}}">{{f_is_active_Aktif_Nonaktif}}</span></td>
+                  <td class="whitespace-nowrap"><a class="font-semibold text-bluebrand" href="?edit={{int_f_id}}">Edit</a> <form class="ml-3 inline" method="post" action="{{root}}api/admin_faculties_delete.php" data-confirm="Hapus fakultas ini? Artikel di fakultas ini akan menjadi Universitas."><input type="hidden" name="csrf_token" value="{{csrf_token}}"><input type="hidden" name="id" value="{{int_f_id}}"><button class="font-semibold text-red-700">Hapus</button></form></td>
+                </tr>
+              {{/rows}}
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <section class="h-fit border border-slate-200 bg-white p-5">
+          <h3 class="font-extrabold text-ink">{{editing_Edit_Fakultas_Tambah_Fakultas}}</h3>
+          <form class="mt-4 space-y-3" method="post" action="{{root}}api/admin_faculties_save.php">
+            <input type="hidden" name="csrf_token" value="{{csrf_token}}">
+            <input type="hidden" name="id" value="{{int_editing_id_0}}">
+          {{#editing}}
+            <div><label class="mb-1 block text-xs font-bold">Kode</label><input class="form-control" value="{{editing_code}}" disabled></div>
+          {{/editing}}{{#otherwise_editing}}
+            <div><label class="mb-1 block text-xs font-bold">Kode *</label><input class="form-control" name="code" maxlength="20" placeholder="mis. FH" required></div>
+          {{/otherwise_editing}}
+            <div><label class="mb-1 block text-xs font-bold">Nama</label><input class="form-control" name="name" value="{{editing_name}}" required></div>
+            <div><label class="mb-1 block text-xs font-bold">Slug</label><input class="form-control" name="slug" value="{{editing_slug}}" required></div>
+            <div><label class="mb-1 block text-xs font-bold">Deskripsi</label><textarea class="form-control" name="description" rows="3">{{editing_description}}</textarea></div>
+            <div><label class="mb-1 block text-xs font-bold">Website</label><input class="form-control" name="website_url" value="{{editing_website_url}}" placeholder="https://..."></div>
+            <label class="flex items-center gap-2 text-sm"><input type="checkbox" name="is_active" value="1" {{editing_is_active_checked}}> Fakultas aktif</label>
+            <button class="btn-primary w-full">Simpan</button>
+          {{#editing}}
+            <a class="btn-secondary w-full" href="{{root}}admin/fakultas.html">Batal</a>
+          {{/editing}}
+          </form>
+        </section>
+      </div>
+    </script>
+    <noscript>Aktifkan JavaScript untuk membuka Pena Kampus.</noscript>
+  </body>
+</html>
